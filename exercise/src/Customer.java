@@ -46,16 +46,19 @@ public class Customer {
     }
 
     public void getNumberOfCustomersByGender(List<Customer> cList){
-        Map<Gender,Long> mapp= cList.stream().collect(Collectors.groupingBy(Customer::getGender, Collectors.counting()));
+        Map<Gender,Long> map= cList.stream().collect(Collectors.groupingBy(Customer::getGender, Collectors.counting()));
 
-        Map<Gender,Integer> map = new HashMap<>();
-        for(Customer customer :cList){
-            Gender gender = customer.gender;
-            map.put(gender,map.getOrDefault(gender,0)+1);
-        }
-        for (Map.Entry<Gender, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey().getGenderName() + ": " + entry.getValue());
-        }
+        map.forEach((key, value) -> System.out.println(key.getGenderName() + ": " + value));
+
+//        Map<Gender,Integer> map = new HashMap<>();
+//        for(Customer customer :cList){
+//            Gender gender = customer.gender;
+//            map.put(gender,map.getOrDefault(gender,0)+1);
+//        }
+//        for (Map.Entry<Gender, Long> entry : map.entrySet()) {
+//            System.out.println(entry.getKey().getGenderName() + ": " + entry.getValue());
+//        }
+
     }
     public static List<String> getAllGenderNames() {
         List<String> genderNames = new ArrayList<>();

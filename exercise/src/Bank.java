@@ -2,12 +2,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bank {
-    public static void credit(Account account, int amount){
-        account.credit(amount);
-    }
 
-    public static void debit(Account account, int amount){
-        account.debit(amount);
+    public static void creditOrDebit(Account account, int amount, String operation){
+        if (account == null) {
+            throw new IllegalArgumentException("Account cannot be null");
+        }
+        if (operation == null) {
+            throw new IllegalArgumentException("Operation cannot be null");
+        }
+        if(operation.equals("+")){
+            account.credit(amount);
+        }
+        else if(operation.equals("-")) {
+            try{
+                account.debit(amount);
+            }
+            catch (AllException.InvalidAmountException e){
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     public static void transferTo(Account account, int cId, int amount, List<Account> aList){
@@ -41,9 +54,9 @@ public class Bank {
         aList.add(account2);
         aList.add(account3);
 
-        credit(account1,200);
+        creditOrDebit(account1,200,"+");
 
-        debit(account2,100);
+        creditOrDebit(account2,100,"-");
 
         transferTo(account3, 101, 300, aList);
 
@@ -51,12 +64,18 @@ public class Bank {
         System.out.println("customer list : " + cList);
         System.out.println("account list: " + aList);
 
-        customer1.getNumberOfCustomersByGender(cList);
+        if (customer1 != null) {
+            customer1.getNumberOfCustomersByGender(cList);
+        }
 
         List<String> genderNames = Customer.getAllGenderNames();
-        System.out.println("Gender Names: " + genderNames);
+        if (genderNames != null) {
+            System.out.println("Gender Names: " + genderNames);
+        }
 
-        account1.getAllTransactionsOfCustomer(cList);
+        if (account1 != null) {
+            account1.getAllTransactionsOfCustomer(cList);
+        }
     }
 
 }

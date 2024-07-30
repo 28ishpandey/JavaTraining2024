@@ -35,7 +35,7 @@
     "Application.Bank.executor": "Run",
     "Application.Customer.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "onboarding.tips.debug.path": "C:/Users/DELL/IdeaProjects/exercise/src/Main.java",
     "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"

@@ -80,13 +80,14 @@ public class Account {
     }
 
 
-    public void debit(double amount) {
+    public void debit(double amount) throws AllException.InvalidAmountException {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
             System.out.println("debited: "+ amount + " balance: " + balance);
             transactionList.add("debited: "+ amount + " balance: " + balance);
         } else {
-            System.out.println("Invalid debit amount.");
+
+            throw new AllException.InvalidAmountException();
         }
     }
 
@@ -94,7 +95,11 @@ public class Account {
     public void transferTo(Integer otherAccountId, double amount,List<Account> accountList) throws AllException.AccountNotFoundException {
         accountList.forEach(account -> {
             if (account.getAccountId().equals(otherAccountId)){
-                this.debit(amount);
+                try {
+                    this.debit(amount);
+                } catch (AllException.InvalidAmountException e) {
+                    System.out.println(e.getMessage());
+                }
                 account.credit(amount);
                 transactionList.add("from account: " + this.accountId+ " to account : " + otherAccountId);
                 return;
