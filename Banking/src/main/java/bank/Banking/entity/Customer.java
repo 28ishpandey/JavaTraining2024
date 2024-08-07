@@ -88,4 +88,7 @@ public class Customer {
                 ", mId=" + mId +
                 '}';
     }
+
+    public Customer() {
+    }
 }

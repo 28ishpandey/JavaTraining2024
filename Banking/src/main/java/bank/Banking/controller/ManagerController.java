@@ -1,7 +1,8 @@
 package bank.Banking.controller;
 
-import bank.Banking.entity.Customer;
-import bank.Banking.service.CustomerService;
+
+import bank.Banking.entity.Manager;
+import bank.Banking.service.ManagerService;
 import bank.Banking.util.BankConstants;
 import bank.Banking.util.BankUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/customer")
-public class CustomerController {
+@RequestMapping("/manager")
+public class ManagerController {
 
     @Autowired
-    private CustomerService customerService;
+    private ManagerService managerService;
 
     @PostMapping("/create")
-    public ResponseEntity<String> createCustomer(@RequestBody Customer customer){
+    public ResponseEntity<String> createManager(@RequestBody Manager manager){
         try{
-            return customerService.createCustomer(customer);
+            return managerService.createManager(manager);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -32,13 +33,13 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Customer> getCustomerById(@PathVariable Integer id ){
-        return customerService.getCustomerById(id);
+    public Optional<Manager> getManagerById(@PathVariable Integer id ){
+        return managerService.getManagerById(id);
     }
     @GetMapping("/getAll")
-    public ResponseEntity<List<Customer>> getAllCustomers(){
+    public ResponseEntity<List<Manager>> getAllManager(){
         try{
-            return customerService.getAllCustomers();
+            return managerService.getAllManager();
         }
         catch(Exception e){
             e.printStackTrace();
@@ -46,9 +47,9 @@ public class CustomerController {
         return new ResponseEntity<>(new ArrayList<>(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCustomer(@PathVariable Integer id){
+    public ResponseEntity<String> createManager(@PathVariable Integer id){
         try{
-            return customerService.deleteCustomer(id);
+            return managerService.deleteManager(id);
         }
         catch(Exception e){
             e.printStackTrace();
@@ -56,17 +57,13 @@ public class CustomerController {
         return BankUtil.getResponseEntity(BankConstants.SOMETHING_WENT_WRONG, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @PutMapping("/update")
-    public ResponseEntity<String> updateCustomerDetails(@RequestBody Customer customer){
+    public ResponseEntity<String> updateManagerDetails(@RequestBody Manager manager){
         try {
-            return customerService.updateCustomerDetails(customer);
+            return managerService.updateManagerDetails(manager);
         }
         catch (Exception e){
             e.printStackTrace();
         }
         return BankUtil.getResponseEntity(BankConstants.SOMETHING_WENT_WRONG,HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
-
-
 }

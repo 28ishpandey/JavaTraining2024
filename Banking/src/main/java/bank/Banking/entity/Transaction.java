@@ -13,17 +13,20 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tId;
-    private Operation operation;
+    private String operation;
     private LocalDateTime dateTime;
-    private String cId;
+    private Integer aId;
     private Long amount;
 
-    public Transaction(Integer tId, Operation operation, LocalDateTime dateTime, String cId, Long amount) {
+    public Transaction(Integer tId, String operation, LocalDateTime dateTime, Integer aId, Long amount) {
         this.tId = tId;
         this.operation = operation;
         this.dateTime = dateTime;
-        this.cId = cId;
+        this.aId = aId;
         this.amount = amount;
+    }
+
+    public Transaction() {
     }
 
     public Integer gettId() {
@@ -34,11 +37,11 @@ public class Transaction {
         this.tId = tId;
     }
 
-    public Operation getOperation() {
+    public String getOperation() {
         return operation;
     }
 
-    public void setOperation(Operation operation) {
+    public void setOperation(String operation) {
         this.operation = operation;
     }
 
@@ -50,12 +53,12 @@ public class Transaction {
         this.dateTime = dateTime;
     }
 
-    public String getcId() {
-        return cId;
+    public Integer getaId() {
+        return aId;
     }
 
-    public void setcId(String cId) {
-        this.cId = cId;
+    public void setaId(Integer aId) {
+        this.aId = aId;
     }
 
     public Long getAmount() {
@@ -71,12 +74,12 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Objects.equals(tId, that.tId) && operation == that.operation && Objects.equals(dateTime, that.dateTime) && Objects.equals(cId, that.cId) && Objects.equals(amount, that.amount);
+        return Objects.equals(tId, that.tId) && operation == that.operation && Objects.equals(dateTime, that.dateTime) && Objects.equals(aId, that.aId) && Objects.equals(amount, that.amount);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tId, operation, dateTime, cId, amount);
+        return Objects.hash(tId, operation, dateTime, aId, amount);
     }
 
     @Override
@@ -85,7 +88,7 @@ public class Transaction {
                 "tId=" + tId +
                 ", operation=" + operation +
                 ", dateTime=" + dateTime +
-                ", cId='" + cId + '\'' +
+                ", cId='" + aId + '\'' +
                 ", amount=" + amount +
                 '}';
     }

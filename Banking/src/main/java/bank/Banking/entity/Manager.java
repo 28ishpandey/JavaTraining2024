@@ -15,6 +15,9 @@ public class Manager {
     private String mName;
     private String mPhone;
 
+    public Manager() {
+    }
+
     public Manager(Integer mId, String mName, String mPhone) {
         this.mId = mId;
         this.mName = mName;

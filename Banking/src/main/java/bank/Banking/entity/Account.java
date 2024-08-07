@@ -1,49 +1,36 @@
 package bank.Banking.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
-public class Account {
+
+public abstract class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer aId;
     private Long aNumber;
     private Long balance;
-    private AccountType aType;
+    private Integer cId;
 
-    public Account(Integer aId, Long aNumber, Long balance, AccountType aType) {
+    @Enumerated(EnumType.STRING)
+    private AccountType aType;
+    private Long withdrawalCount = 0L;
+    private Long depositCount = 0L;
+
+
+    public Account() {
+    }
+
+    public Account(Integer aId, Long aNumber, Long balance, Integer cId, AccountType aType, Long withdrawalCount, Long depositCount) {
         this.aId = aId;
         this.aNumber = aNumber;
         this.balance = balance;
+        this.cId = cId;
         this.aType = aType;
-    }
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "aId=" + aId +
-                ", aNumber=" + aNumber +
-                ", balance=" + balance +
-                ", aType=" + aType +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Account account = (Account) o;
-        return Objects.equals(aId, account.aId) && Objects.equals(aNumber, account.aNumber) && Objects.equals(balance, account.balance) && aType == account.aType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(aId, aNumber, balance, aType);
+        this.withdrawalCount = withdrawalCount;
+        this.depositCount = depositCount;
     }
 
     public Integer getaId() {
@@ -70,6 +57,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public Integer getcId() {
+        return cId;
+    }
+
+    public void setcId(Integer cId) {
+        this.cId = cId;
+    }
+
     public AccountType getaType() {
         return aType;
     }
@@ -77,4 +72,50 @@ public class Account {
     public void setaType(AccountType aType) {
         this.aType = aType;
     }
+
+    public Long getWithdrawalCount() {
+        return withdrawalCount;
+    }
+
+    public void setWithdrawalCount(Long withdrawalCount) {
+        this.withdrawalCount = withdrawalCount;
+    }
+
+    public Long getDepositCount() {
+        return depositCount;
+    }
+
+    public void setDepositCount(Long depositCount) {
+        this.depositCount = depositCount;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return Objects.equals(aId, account.aId) && Objects.equals(aNumber, account.aNumber) && Objects.equals(balance, account.balance) && Objects.equals(cId, account.cId) && aType == account.aType && Objects.equals(withdrawalCount, account.withdrawalCount) && Objects.equals(depositCount, account.depositCount);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(aId, aNumber, balance, cId, aType, withdrawalCount, depositCount);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "aId=" + aId +
+                ", aNumber=" + aNumber +
+                ", balance=" + balance +
+                ", cId=" + cId +
+                ", aType=" + aType +
+                ", withdrawalCount=" + withdrawalCount +
+                ", depositCount=" + depositCount +
+                '}';
+    }
+
+    public abstract void withdraw(Long amount) throws Exception;
+
+    public abstract void deposit(Long amount) throws Exception;
 }
